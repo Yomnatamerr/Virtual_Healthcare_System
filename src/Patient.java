@@ -1,78 +1,85 @@
-// Patient.java
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Patient class extending User
+ * Manages patient-specific data and medical history
+ */
 public class Patient extends User {
     private static final long serialVersionUID = 1L;
+    private static int patientCounter = 1000;
 
-    private String patientId;
     private String medicalHistory;
     private String emergencyContact;
-    private List<Appointment> appointments;
-    private EHR healthRecord;
+    private List<String> appointmentIds;
+    private String ehrId;
 
     public Patient() {
         super();
-        this.appointments = new ArrayList<>();
+        this.appointmentIds = new ArrayList<>();
     }
 
-    public Patient(String userId, String name, String email, String password,
-                   String phoneNumber, String patientId, String medicalHistory,
-                   String emergencyContact) {
-        super(userId, name, email, password, phoneNumber);
-        this.patientId = patientId;
+    public Patient(String name, String email, String phone, String password,
+                   String medicalHistory, String emergencyContact) {
+        super(generatePatientId(), name, email, phone, password);
         this.medicalHistory = medicalHistory;
         this.emergencyContact = emergencyContact;
-        this.appointments = new ArrayList<>();
-        this.healthRecord = new EHR(patientId, name);
+        this.appointmentIds = new ArrayList<>();
+        this.ehrId = "EHR-" + this.userId;
+    }
+
+    private static String generatePatientId() {
+        return "P" + (patientCounter++);
+    }
+
+    public static void setPatientCounter(int counter) {
+        patientCounter = counter;
+    }
+
+    @Override
+    public String getRole() {
+        return "PATIENT";
     }
 
     // Getters and Setters
-    public String getPatientId() { return patientId; }
-    public void setPatientId(String patientId) { this.patientId = patientId; }
+    public String getMedicalHistory() {
+        return medicalHistory;
+    }
 
-    public String getMedicalHistory() { return medicalHistory; }
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
 
-    public String getEmergencyContact() { return emergencyContact; }
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
 
-    public List<Appointment> getAppointments() { return appointments; }
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public List<String> getAppointmentIds() {
+        return appointmentIds;
     }
 
-    public EHR getHealthRecord() { return healthRecord; }
-    public void setHealthRecord(EHR healthRecord) { this.healthRecord = healthRecord; }
-
-    @Override
-    public String getRole() {
-        return "Patient";
+    public void setAppointmentIds(List<String> appointmentIds) {
+        this.appointmentIds = appointmentIds;
     }
 
-    public void bookAppointment(Appointment appointment) {
-        appointments.add(appointment);
+    public void addAppointment(String appointmentId) {
+        this.appointmentIds.add(appointmentId);
     }
 
-    public void updateProfile(String name, String email, String phoneNumber) {
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public String getEhrId() {
+        return ehrId;
     }
 
-    public void viewAppointments() {
-        for (Appointment apt : appointments) {
-            System.out.println(apt);
-        }
+    public void setEhrId(String ehrId) {
+        this.ehrId = ehrId;
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", Patient ID: " + patientId +
-                ", Medical History: " + medicalHistory;
+        return super.toString() + ", Role: Patient, Medical History: " + medicalHistory;
     }
 }

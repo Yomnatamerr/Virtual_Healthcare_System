@@ -1,153 +1,186 @@
-// DataManager.java
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DataManager class
+ * Handles persistence using file I/O with proper exception handling
+ * Uses extensible collections for data management
+ */
 public class DataManager {
-    private static final String PATIENTS_FILE = "patients.dat";
-    private static final String PROVIDERS_FILE = "providers.dat";
-    private static final String APPOINTMENTS_FILE = "appointments.dat";
-    private static final String BILLS_FILE = "bills.dat";
-    private static final String FEEDBACK_FILE = "feedback.dat";
+    private static final String DATA_DIR = "data/";
+    private static final String PATIENTS_FILE = DATA_DIR + "patients.dat";
+    private static final String PROVIDERS_FILE = DATA_DIR + "providers.dat";
+    private static final String ADMINS_FILE = DATA_DIR + "administrators.dat";
+    private static final String APPOINTMENTS_FILE = DATA_DIR + "appointments.dat";
+    private static final String EHRS_FILE = DATA_DIR + "ehrs.dat";
+    private static final String PRESCRIPTIONS_FILE = DATA_DIR + "prescriptions.dat";
+    private static final String BILLS_FILE = DATA_DIR + "bills.dat";
+    private static final String FEEDBACK_FILE = DATA_DIR + "feedback.dat";
+    private static final String PAYMENTS_FILE = DATA_DIR + "payments.dat";
 
-    // Save patients to file
-    public static void savePatients(List<Patient> patients) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(PATIENTS_FILE))) {
-            oos.writeObject(patients);
+    public DataManager() {
+        initializeDataDirectory();
+    }
+
+    private void initializeDataDirectory() {
+        File dir = new File(DATA_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
     }
 
-    // Load patients from file
+    // Generic save method using extensible collections
+    private <T> void saveData(List<T> dataList, String filename) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(dataList);
+        }
+    }
+
+    // Generic load method using extensible collections
     @SuppressWarnings("unchecked")
-    public static List<Patient> loadPatients() throws IOException, ClassNotFoundException {
-        File file = new File(PATIENTS_FILE);
+    private <T> List<T> loadData(String filename) throws IOException, ClassNotFoundException {
+        File file = new File(filename);
         if (!file.exists()) {
             return new ArrayList<>();
         }
 
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(PATIENTS_FILE))) {
-            return (List<Patient>) ois.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            return (List<T>) ois.readObject();
         }
     }
 
-    // Save providers to file
-    public static void saveProviders(List<Provider> providers) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(PROVIDERS_FILE))) {
-            oos.writeObject(providers);
-        }
+    // Patient operations
+    public void savePatients(List<Patient> patients) throws IOException {
+        saveData(patients, PATIENTS_FILE);
     }
 
-    // Load providers from file
-    @SuppressWarnings("unchecked")
-    public static List<Provider> loadProviders() throws IOException, ClassNotFoundException {
-        File file = new File(PROVIDERS_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(PROVIDERS_FILE))) {
-            return (List<Provider>) ois.readObject();
-        }
+    public List<Patient> loadPatients() throws IOException, ClassNotFoundException {
+        return loadData(PATIENTS_FILE);
     }
 
-    // Save appointments to file
-    public static void saveAppointments(List<Appointment> appointments) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(APPOINTMENTS_FILE))) {
-            oos.writeObject(appointments);
-        }
+    // Provider operations
+    public void saveProviders(List<Provider> providers) throws IOException {
+        saveData(providers, PROVIDERS_FILE);
     }
 
-    // Load appointments from file
-    @SuppressWarnings("unchecked")
-    public static List<Appointment> loadAppointments() throws IOException, ClassNotFoundException {
-        File file = new File(APPOINTMENTS_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(APPOINTMENTS_FILE))) {
-            return (List<Appointment>) ois.readObject();
-        }
+    public List<Provider> loadProviders() throws IOException, ClassNotFoundException {
+        return loadData(PROVIDERS_FILE);
     }
 
-    // Save bills to file
-    public static void saveBills(List<Bill> bills) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(BILLS_FILE))) {
-            oos.writeObject(bills);
-        }
+    // Administrator operations
+    public void saveAdministrators(List<Administrator> admins) throws IOException {
+        saveData(admins, ADMINS_FILE);
     }
 
-    // Load bills from file
-    @SuppressWarnings("unchecked")
-    public static List<Bill> loadBills() throws IOException, ClassNotFoundException {
-        File file = new File(BILLS_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(BILLS_FILE))) {
-            return (List<Bill>) ois.readObject();
-        }
+    public List<Administrator> loadAdministrators() throws IOException, ClassNotFoundException {
+        return loadData(ADMINS_FILE);
     }
 
-    // Save feedback to file
-    public static void saveFeedback(List<Feedback> feedbackList) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(FEEDBACK_FILE))) {
-            oos.writeObject(feedbackList);
-        }
+    // Appointment operations
+    public void saveAppointments(List<Appointment> appointments) throws IOException {
+        saveData(appointments, APPOINTMENTS_FILE);
     }
 
-    // Load feedback from file
-    @SuppressWarnings("unchecked")
-    public static List<Feedback> loadFeedback() throws IOException, ClassNotFoundException {
-        File file = new File(FEEDBACK_FILE);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
-
-        try (ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(FEEDBACK_FILE))) {
-            return (List<Feedback>) ois.readObject();
-        }
+    public List<Appointment> loadAppointments() throws IOException, ClassNotFoundException {
+        return loadData(APPOINTMENTS_FILE);
     }
 
-    // Search patient by ID
-    public static Patient searchPatientById(List<Patient> patients, String patientId) {
+    // EHR operations
+    public void saveEHRs(List<EHR> ehrs) throws IOException {
+        saveData(ehrs, EHRS_FILE);
+    }
+
+    public List<EHR> loadEHRs() throws IOException, ClassNotFoundException {
+        return loadData(EHRS_FILE);
+    }
+
+    // Prescription operations
+    public void savePrescriptions(List<Prescription> prescriptions) throws IOException {
+        saveData(prescriptions, PRESCRIPTIONS_FILE);
+    }
+
+    public List<Prescription> loadPrescriptions() throws IOException, ClassNotFoundException {
+        return loadData(PRESCRIPTIONS_FILE);
+    }
+
+    // Bill operations
+    public void saveBills(List<Bill> bills) throws IOException {
+        saveData(bills, BILLS_FILE);
+    }
+
+    public List<Bill> loadBills() throws IOException, ClassNotFoundException {
+        return loadData(BILLS_FILE);
+    }
+
+    // Feedback operations
+    public void saveFeedback(List<Feedback> feedbackList) throws IOException {
+        saveData(feedbackList, FEEDBACK_FILE);
+    }
+
+    public List<Feedback> loadFeedback() throws IOException, ClassNotFoundException {
+        return loadData(FEEDBACK_FILE);
+    }
+
+    // Payment operations
+    public void savePayments(List<Payment> payments) throws IOException {
+        saveData(payments, PAYMENTS_FILE);
+    }
+
+    public List<Payment> loadPayments() throws IOException, ClassNotFoundException {
+        return loadData(PAYMENTS_FILE);
+    }
+
+    // Search operations
+    public Patient searchPatientById(String patientId) throws IOException, ClassNotFoundException {
+        List<Patient> patients = loadPatients();
+        if (patients == null || patients.isEmpty()) {
+            return null;
+        }
         for (Patient patient : patients) {
-            if (patient.getPatientId().equals(patientId)) {
+            if (patient != null && patient.getUserId() != null &&
+                    patient.getUserId().trim().equals(patientId.trim())) {
                 return patient;
             }
         }
         return null;
     }
 
-    // Search provider by ID
-    public static Provider searchProviderById(List<Provider> providers, String providerId) {
+    public Provider searchProviderById(String providerId) throws IOException, ClassNotFoundException {
+        List<Provider> providers = loadProviders();
+        if (providers == null || providers.isEmpty()) {
+            return null;
+        }
         for (Provider provider : providers) {
-            if (provider.getProviderId().equals(providerId)) {
+            if (provider != null && provider.getUserId() != null &&
+                    provider.getUserId().trim().equals(providerId.trim())) {
                 return provider;
             }
         }
         return null;
     }
 
-    // Search appointment by ID
-    public static Appointment searchAppointmentById(List<Appointment> appointments,
-                                                    String appointmentId) {
+    public List<Appointment> searchAppointmentsByPatient(String patientId)
+            throws IOException, ClassNotFoundException {
+        List<Appointment> appointments = loadAppointments();
+        List<Appointment> result = new ArrayList<>();
         for (Appointment apt : appointments) {
-            if (apt.getAppointmentId().equals(appointmentId)) {
-                return apt;
+            if (apt.getPatientId().equals(patientId)) {
+                result.add(apt);
             }
         }
-        return null;
+        return result;
+    }
+
+    public List<Appointment> searchAppointmentsByProvider(String providerId)
+            throws IOException, ClassNotFoundException {
+        List<Appointment> appointments = loadAppointments();
+        List<Appointment> result = new ArrayList<>();
+        for (Appointment apt : appointments) {
+            if (apt.getProviderId().equals(providerId)) {
+                result.add(apt);
+            }
+        }
+        return result;
     }
 }

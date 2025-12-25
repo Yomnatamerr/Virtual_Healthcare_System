@@ -1,72 +1,76 @@
-// Provider.java
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provider class extending User
+ * Represents healthcare providers (doctors, nurses, specialists)
+ */
 public class Provider extends User {
     private static final long serialVersionUID = 1L;
+    private static int providerCounter = 2000;
 
-    private String providerId;
     private String specialty;
     private String availability;
-    private List<Appointment> appointments;
+    private List<String> appointmentIds;
 
     public Provider() {
         super();
-        this.appointments = new ArrayList<>();
+        this.appointmentIds = new ArrayList<>();
     }
 
-    public Provider(String userId, String name, String email, String password,
-                    String phoneNumber, String providerId, String specialty,
-                    String availability) {
-        super(userId, name, email, password, phoneNumber);
-        this.providerId = providerId;
+    public Provider(String name, String email, String phone, String password,
+                    String specialty, String availability) {
+        super(generateProviderId(), name, email, phone, password);
         this.specialty = specialty;
         this.availability = availability;
-        this.appointments = new ArrayList<>();
+        this.appointmentIds = new ArrayList<>();
     }
 
-    // Getters and Setters
-    public String getProviderId() { return providerId; }
-    public void setProviderId(String providerId) { this.providerId = providerId; }
+    private static String generateProviderId() {
+        return "PR" + (providerCounter++);
+    }
 
-    public String getSpecialty() { return specialty; }
-    public void setSpecialty(String specialty) { this.specialty = specialty; }
-
-    public String getAvailability() { return availability; }
-    public void setAvailability(String availability) { this.availability = availability; }
-
-    public List<Appointment> getAppointments() { return appointments; }
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public static void setProviderCounter(int counter) {
+        providerCounter = counter;
     }
 
     @Override
     public String getRole() {
-        return "Provider";
+        return "PROVIDER";
     }
 
-    public void manageSchedule(String availability) {
+    // Getters and Setters
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 
-    public void conductConsultation(Appointment appointment, String diagnosis,
-                                    String treatment) {
-        appointment.setStatus("Completed");
-        // Update EHR would be done through the system
+    public List<String> getAppointmentIds() {
+        return appointmentIds;
     }
 
-    public void issuePrescription(EHR ehr, String medication, String dosage,
-                                  String instructions) {
-        Prescription prescription = new Prescription(
-                "RX" + System.currentTimeMillis(),
-                medication, dosage, instructions, providerId
-        );
-        ehr.addPrescription(prescription);
+    public void setAppointmentIds(List<String> appointmentIds) {
+        this.appointmentIds = appointmentIds;
+    }
+
+    public void addAppointment(String appointmentId) {
+        this.appointmentIds.add(appointmentId);
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", Provider ID: " + providerId +
-                ", Specialty: " + specialty + ", Availability: " + availability;
+        return super.toString() + ", Role: Provider, Specialty: " + specialty +
+                ", Availability: " + availability;
     }
 }

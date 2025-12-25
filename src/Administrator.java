@@ -1,48 +1,46 @@
-// Administrator.java
+/**
+ * Administrator class extending User
+ * Manages system configuration and provider registration
+ */
 public class Administrator extends User {
     private static final long serialVersionUID = 1L;
+    private static int adminCounter = 3000;
 
-    private String adminId;
     private String department;
 
     public Administrator() {
         super();
     }
 
-    public Administrator(String userId, String name, String email, String password,
-                         String phoneNumber, String adminId, String department) {
-        super(userId, name, email, password, phoneNumber);
-        this.adminId = adminId;
+    public Administrator(String name, String email, String phone, String password, String department) {
+        super(generateAdminId(), name, email, phone, password);
         this.department = department;
     }
 
-    // Getters and Setters
-    public String getAdminId() { return adminId; }
-    public void setAdminId(String adminId) { this.adminId = adminId; }
+    private static String generateAdminId() {
+        return "A" + (adminCounter++);
+    }
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
+    public static void setAdminCounter(int counter) {
+        adminCounter = counter;
+    }
 
     @Override
     public String getRole() {
-        return "Administrator";
+        return "ADMINISTRATOR";
     }
 
-    public void manageUsers() {
-        System.out.println("Managing users...");
+    // Getters and Setters
+    public String getDepartment() {
+        return department;
     }
 
-    public void generateReports() {
-        System.out.println("Generating system reports...");
-    }
-
-    public void configureSystem() {
-        System.out.println("Configuring system settings...");
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", Admin ID: " + adminId +
-                ", Department: " + department;
+        return super.toString() + ", Role: Administrator, Department: " + department;
     }
 }

@@ -1,68 +1,107 @@
-// Appointment.java
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+/**
+ * Appointment class
+ * Manages virtual appointment scheduling between patients and providers
+ */
 public class Appointment implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static int appointmentCounter = 5000;
 
     private String appointmentId;
     private String patientId;
     private String providerId;
-    private String dateTime;
-    private String status; // Scheduled, Completed, Cancelled
-    private String consultationType; // Video, Phone, In-person
+    private LocalDateTime dateTime;
+    private String status; // SCHEDULED, COMPLETED, CANCELLED
+    private String consultationType;
+    private String notes;
 
-    public Appointment() {}
+    public Appointment() {
+    }
 
-    public Appointment(String appointmentId, String patientId, String providerId,
-                       String dateTime, String consultationType) {
-        this.appointmentId = appointmentId;
+    public Appointment(String patientId, String providerId, LocalDateTime dateTime,
+                       String consultationType) {
+        this.appointmentId = generateAppointmentId();
         this.patientId = patientId;
         this.providerId = providerId;
         this.dateTime = dateTime;
-        this.status = "Scheduled";
         this.consultationType = consultationType;
+        this.status = "SCHEDULED";
+        this.notes = "";
+    }
+
+    private static String generateAppointmentId() {
+        return "APT" + (appointmentCounter++);
+    }
+
+    public static void setAppointmentCounter(int counter) {
+        appointmentCounter = counter;
     }
 
     // Getters and Setters
-    public String getAppointmentId() { return appointmentId; }
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
     public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
     }
 
-    public String getPatientId() { return patientId; }
-    public void setPatientId(String patientId) { this.patientId = patientId; }
+    public String getPatientId() {
+        return patientId;
+    }
 
-    public String getProviderId() { return providerId; }
-    public void setProviderId(String providerId) { this.providerId = providerId; }
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
 
-    public String getDateTime() { return dateTime; }
-    public void setDateTime(String dateTime) { this.dateTime = dateTime; }
+    public String getProviderId() {
+        return providerId;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
 
-    public String getConsultationType() { return consultationType; }
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getConsultationType() {
+        return consultationType;
+    }
+
     public void setConsultationType(String consultationType) {
         this.consultationType = consultationType;
     }
 
-    public void scheduleAppointment() {
-        this.status = "Scheduled";
+    public String getNotes() {
+        return notes;
     }
 
-    public void cancelAppointment() {
-        this.status = "Cancelled";
-    }
-
-    public void rescheduleAppointment(String newDateTime) {
-        this.dateTime = newDateTime;
-        this.status = "Rescheduled";
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "Appointment ID: " + appointmentId + ", Patient: " + patientId +
-                ", Provider: " + providerId + ", Date/Time: " + dateTime +
+                ", Provider: " + providerId + ", Date/Time: " + dateTime.format(formatter) +
                 ", Status: " + status + ", Type: " + consultationType;
     }
 }

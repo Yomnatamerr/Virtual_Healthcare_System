@@ -1,63 +1,104 @@
-// Bill.java
 import java.io.Serializable;
+import java.time.LocalDate;
 
+/**
+ * Bill class
+ * Manages billing for consultations and services
+ */
 public class Bill implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static int billCounter = 7000;
 
     private String billId;
     private String patientId;
     private String appointmentId;
     private double amount;
-    private String status; // Pending, Paid, Overdue
-    private String dateGenerated;
+    private LocalDate billDate;
+    private String status; // UNPAID, PAID
+    private String description;
 
-    public Bill() {}
+    public Bill() {
+    }
 
-    public Bill(String billId, String patientId, String appointmentId, double amount) {
-        this.billId = billId;
+    public Bill(String patientId, String appointmentId, double amount, String description) {
+        this.billId = generateBillId();
         this.patientId = patientId;
         this.appointmentId = appointmentId;
         this.amount = amount;
-        this.status = "Pending";
-        this.dateGenerated = java.time.LocalDateTime.now().toString();
+        this.billDate = LocalDate.now();
+        this.status = "UNPAID";
+        this.description = description;
+    }
+
+    private static String generateBillId() {
+        return "BILL" + (billCounter++);
+    }
+
+    public static void setBillCounter(int counter) {
+        billCounter = counter;
     }
 
     // Getters and Setters
-    public String getBillId() { return billId; }
-    public void setBillId(String billId) { this.billId = billId; }
+    public String getBillId() {
+        return billId;
+    }
 
-    public String getPatientId() { return patientId; }
-    public void setPatientId(String patientId) { this.patientId = patientId; }
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
 
-    public String getAppointmentId() { return appointmentId; }
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
     public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
     }
 
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getDateGenerated() { return dateGenerated; }
-    public void setDateGenerated(String dateGenerated) {
-        this.dateGenerated = dateGenerated;
+    public double getAmount() {
+        return amount;
     }
 
-    public void generateBill() {
-        this.dateGenerated = java.time.LocalDateTime.now().toString();
-        this.status = "Pending";
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public void processBill() {
-        this.status = "Paid";
+    public LocalDate getBillDate() {
+        return billDate;
+    }
+
+    public void setBillDate(LocalDate billDate) {
+        this.billDate = billDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "Bill ID: " + billId + ", Patient: " + patientId +
-                ", Appointment: " + appointmentId + ", Amount: $" + amount +
-                ", Status: " + status + ", Date: " + dateGenerated;
+                ", Amount: $" + amount + ", Date: " + billDate +
+                ", Status: " + status + ", Description: " + description;
     }
 }
