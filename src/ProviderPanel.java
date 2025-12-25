@@ -31,11 +31,11 @@ public class ProviderPanel extends JPanel {
 
         JLabel titleLabel = new JLabel("  Healthcare Provider Portal");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
 
         JButton backBtn = new JButton("← Back to Home");
         backBtn.setBackground(new Color(25, 118, 210));
-        backBtn.setForeground(Color.WHITE);
+        backBtn.setForeground(Color.BLACK);
         backBtn.setFocusPainted(false);
         backBtn.addActionListener(e -> mainFrame.showWelcome());
 
@@ -81,7 +81,7 @@ public class ProviderPanel extends JPanel {
 
         JButton loginBtn = new JButton("Login");
         loginBtn.setBackground(new Color(33, 150, 243));
-        loginBtn.setForeground(Color.WHITE);
+        loginBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         panel.add(loginBtn, gbc);
 
@@ -237,7 +237,7 @@ public class ProviderPanel extends JPanel {
 
         JButton updateBtn = new JButton("Update EHR");
         updateBtn.setBackground(new Color(33, 150, 243));
-        updateBtn.setForeground(Color.WHITE);
+        updateBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         panel.add(updateBtn, gbc);
 
@@ -330,7 +330,7 @@ public class ProviderPanel extends JPanel {
 
         JButton issueBtn = new JButton("Issue Prescription");
         issueBtn.setBackground(new Color(33, 150, 243));
-        issueBtn.setForeground(Color.WHITE);
+        issueBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
         panel.add(issueBtn, gbc);
 

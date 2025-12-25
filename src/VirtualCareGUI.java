@@ -45,7 +45,7 @@ public class VirtualCareGUI extends JFrame {
 
         JLabel titleLabel = new JLabel("VirtualCare 2025");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
         headerPanel.add(titleLabel);
 
         // Center content
@@ -100,7 +100,7 @@ public class VirtualCareGUI extends JFrame {
         button.setPreferredSize(new Dimension(300, 50));
         button.setFont(new Font("Arial", Font.BOLD, 16));
         button.setBackground(bgColor);
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));

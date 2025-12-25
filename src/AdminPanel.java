@@ -28,11 +28,11 @@ public class AdminPanel extends JPanel {
 
         JLabel titleLabel = new JLabel("  Administrator Portal");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
 
         JButton backBtn = new JButton("← Back to Home");
         backBtn.setBackground(new Color(123, 31, 162));
-        backBtn.setForeground(Color.WHITE);
+        backBtn.setForeground(Color.BLACK);
         backBtn.setFocusPainted(false);
         backBtn.addActionListener(e -> mainFrame.showWelcome());
 
@@ -78,7 +78,7 @@ public class AdminPanel extends JPanel {
 
         JButton loginBtn = new JButton("Login");
         loginBtn.setBackground(new Color(156, 39, 176));
-        loginBtn.setForeground(Color.WHITE);
+        loginBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         panel.add(loginBtn, gbc);
 
@@ -167,7 +167,7 @@ public class AdminPanel extends JPanel {
 
         JButton registerBtn = new JButton("Register Admin");
         registerBtn.setBackground(new Color(156, 39, 176));
-        registerBtn.setForeground(Color.WHITE);
+        registerBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 11; gbc.gridwidth = 2;
         panel.add(registerBtn, gbc);
 
@@ -262,7 +262,7 @@ public class AdminPanel extends JPanel {
 
         JButton addBtn = new JButton("Add Provider");
         addBtn.setBackground(new Color(156, 39, 176));
-        addBtn.setForeground(Color.WHITE);
+        addBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 7; gbc.gridwidth = 2;
         formPanel.add(addBtn, gbc);
 
@@ -395,7 +395,7 @@ public class AdminPanel extends JPanel {
 
         JButton generateBtn = new JButton("Generate Analytics Report");
         generateBtn.setBackground(new Color(156, 39, 176));
-        generateBtn.setForeground(Color.WHITE);
+        generateBtn.setForeground(Color.BLACK);
         gbc.gridy = 2; gbc.weighty = 0;
         panel.add(generateBtn, gbc);
 

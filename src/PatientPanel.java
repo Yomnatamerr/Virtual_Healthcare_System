@@ -33,11 +33,11 @@ public class PatientPanel extends JPanel {
 
         JLabel titleLabel = new JLabel("  Patient Portal");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.BLACK);
 
         JButton backBtn = new JButton("← Back to Home");
         backBtn.setBackground(new Color(56, 142, 60));
-        backBtn.setForeground(Color.WHITE);
+        backBtn.setForeground(Color.BLACK);
         backBtn.setFocusPainted(false);
         backBtn.addActionListener(e -> mainFrame.showWelcome());
 
@@ -89,7 +89,7 @@ public class PatientPanel extends JPanel {
 
         JButton loginBtn = new JButton("Login");
         loginBtn.setBackground(new Color(76, 175, 80));
-        loginBtn.setForeground(Color.WHITE);
+        loginBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         panel.add(loginBtn, gbc);
 
@@ -175,7 +175,7 @@ public class PatientPanel extends JPanel {
 
         JButton registerBtn = new JButton("Register");
         registerBtn.setBackground(new Color(33, 150, 243));
-        registerBtn.setForeground(Color.WHITE);
+        registerBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 12; gbc.gridwidth = 2;
         panel.add(registerBtn, gbc);
 
@@ -263,15 +263,15 @@ public class PatientPanel extends JPanel {
 
         JButton loadBtn = new JButton("Load Bills");
         loadBtn.setBackground(new Color(33, 150, 243));
-        loadBtn.setForeground(Color.WHITE);
+        loadBtn.setForeground(Color.BLACK);
 
         JButton payBtn = new JButton("Pay Selected Bill");
         payBtn.setBackground(new Color(76, 175, 80));
-        payBtn.setForeground(Color.WHITE);
+        payBtn.setForeground(Color.BLACK);
 
         JButton viewDetailsBtn = new JButton("View Details");
         viewDetailsBtn.setBackground(new Color(156, 39, 176));
-        viewDetailsBtn.setForeground(Color.WHITE);
+        viewDetailsBtn.setForeground(Color.BLACK);
 
         loadBtn.addActionListener(e -> {
             if (currentPatient == null) {
@@ -545,7 +545,7 @@ public class PatientPanel extends JPanel {
 
         JButton bookBtn = new JButton("Book Appointment");
         bookBtn.setBackground(new Color(76, 175, 80));
-        bookBtn.setForeground(Color.WHITE);
+        bookBtn.setForeground(Color.BLACK);
         gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         formPanel.add(bookBtn, gbc);
 
